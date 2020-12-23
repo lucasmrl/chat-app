@@ -1,4 +1,4 @@
-# Chatt-app 🦜
+# Chat-app 🦜
 
 Project developed using:
 
