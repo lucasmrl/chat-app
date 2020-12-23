@@ -1,11 +1,17 @@
 const express = require("express");
 const app = express();
-const port = 8080;
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 
-app.get("/test", (req, res) => {
-  res.send("Frontend connected with Backend! 🚀");
+const PORT = process.env.PORT || 8080;
+
+io.on("connection", (socket) => {
+  const { id } = socket.client;
+  console.log(`User connected: ${id}`);
+  socket.on("chat message", (msg) => {
+    console.log(`${id}: ${msg}`);
+    io.emit("chat message", { id, msg });
+  });
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}...`);
-});
+server.listen(PORT, () => console.log(`Listen on *: ${PORT}`));
