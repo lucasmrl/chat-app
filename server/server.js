@@ -6,11 +6,16 @@ const io = require("socket.io")(server);
 const PORT = process.env.PORT || 8080;
 
 io.on("connection", (socket) => {
-  const { id } = socket.client;
+  let { id } = socket.client;
   console.log(`User connected: ${id}`);
-  socket.on("chat message", (msg) => {
-    console.log(`${id}: ${msg}`);
-    io.emit("chat message", { id, msg });
+
+  socket.on("chat message", ({ nickname, msg }) => {
+    console.log(`${nickname}: ${msg}`);
+    socket.broadcast.emit("chat message", { nickname, msg });
+  });
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected: " + id);
   });
 });
 
