@@ -9,6 +9,10 @@ io.on("connection", (socket) => {
   let { id } = socket.client;
   console.log(`User connected: ${id}`);
 
+  socket.on("new-user", (text) => {
+    socket.broadcast.emit("welcome", id);
+  });
+
   socket.on("chat message", ({ nickname, msg }) => {
     console.log(`${nickname}: ${msg}`);
     socket.broadcast.emit("chat message", { nickname, msg });
