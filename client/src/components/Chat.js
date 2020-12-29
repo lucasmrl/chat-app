@@ -6,31 +6,39 @@ function Chat() {
   const [nickname, setNickname] = useState();
   const [msg, setMsg] = useState("");
   const [chat, setChat] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [online, setOnline] = useState([]);
 
   useEffect(() => {
     socket.on("chat message", ({ nickname, msg }) => {
       setChat([...chat, { nickname, msg }]);
     });
+
     return () => {
       socket.off();
     };
-  }, [chat, users]);
+  }, [chat]);
 
   useEffect(() => {
     socket.on("connect", () => {
       socket.emit("new-user", "test");
     });
 
-    socket.on("welcome", (user) => {
-      setUsers([...users, user]);
-      setChat([...chat, `Welcome to our chat ${user}`]);
+    socket.on("users-on", (list) => {
+      setOnline(list);
+    });
+
+    socket.on("welcome", (id) => {
+      setChat([...chat, `Welcome to our chat ${id} 😃`]);
+    });
+
+    socket.on("user-disconnected", (id) => {
+      setChat([...chat, `Bye bye ${id} 😞`]);
     });
 
     return () => {
       socket.off();
     };
-  }, [chat, users]);
+  }, [chat]);
 
   const submitMsg = () => {
     socket.emit("chat message", { nickname, msg });
@@ -41,6 +49,8 @@ function Chat() {
   return (
     <div className="">
       <h1>Chat-app!</h1>
+      <p>Users online:</p>
+      <ul>{online !== null ? online.map((el) => <li>{el}</li>) : ""}</ul>
       <div>
         <span>Nickname:</span>
         <input onChange={(e) => setNickname(e.target.value)} value={nickname} />
