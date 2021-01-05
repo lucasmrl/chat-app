@@ -70,7 +70,10 @@ function Chat() {
   return (
     <div className="">
       <h1>Chat-app!</h1>
-      <p>Users online ({online !== null ? online.length : "0"}):</p>
+      <p className="font-black">
+        {" "}
+        Users online ({online !== null ? online.length : "0"}):
+      </p>
       <ul>
         {online !== null
           ? online.map((el) => (
@@ -82,7 +85,11 @@ function Chat() {
       </ul>
       <div>
         <span>Nickname:</span>
-        <input onChange={(e) => setNickname(e.target.value)} value={nickname} />
+        <input
+          className="block md:inline bg-red-400 mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+          onChange={(e) => setNickname(e.target.value)}
+          value={nickname}
+        />
       </div>
       <input
         onChange={(e) => {
