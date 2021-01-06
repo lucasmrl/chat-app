@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { default as socket } from "./ws";
 
 function Chat() {
-  const [nickname, setNickname] = useState();
+  let { user_nickName } = useParams();
+  const [nickname, setNickname] = useState("");
   const [msg, setMsg] = useState("");
   const [chat, setChat] = useState([]);
-  const [online, setOnline] = useState([]);
+  const [usersOnline, setUsersOnline] = useState([]);
   const [toUser, setToUser] = useState("");
 
   useEffect(() => {
+    setNickname(user_nickName);
     socket.on("chat message", ({ nickname, msg }) => {
       setChat([...chat, { nickname, msg }]);
     });
@@ -21,7 +23,7 @@ function Chat() {
     return () => {
       socket.off();
     };
-  }, [chat, toUser]);
+  }, [chat, toUser, user_nickName]);
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -29,15 +31,15 @@ function Chat() {
     });
 
     socket.on("users-on", (list) => {
-      setOnline(list);
+      setUsersOnline(list);
     });
 
-    socket.on("welcome", (id) => {
-      setChat([...chat, `Welcome to our chat ${id} 😃`]);
+    socket.on("welcome", (user) => {
+      setChat([...chat, `Welcome to our chat ${user} 😃`]);
     });
 
-    socket.on("user-disconnected", (id) => {
-      setChat([...chat, `Bye bye ${id} 😞`]);
+    socket.on("user-disconnected", (user) => {
+      setChat([...chat, `Bye bye ${user} 😞`]);
     });
 
     return () => {
@@ -72,26 +74,19 @@ function Chat() {
       <h1>Chat-app!</h1>
       <p className="font-black">
         {" "}
-        Users online ({online !== null ? online.length : "0"}):
+        Users online ({usersOnline !== null ? usersOnline.length : "0"}):
       </p>
       <ul>
-        {online !== null
-          ? online.map((el) => (
+        {usersOnline !== null
+          ? usersOnline.map((el) => (
               <li>
                 <button onClick={() => saveUserToPrivateMsg(el)}>{el}</button>
               </li>
             ))
           : ""}
       </ul>
-      <div>
-        <span>Nickname:</span>
-        <input
-          className="block md:inline bg-red-400 mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
-          onChange={(e) => setNickname(e.target.value)}
-          value={nickname}
-        />
-      </div>
       <input
+        className="block md:inline bg-red-400 mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
         onChange={(e) => {
           setMsg(e.target.value);
           typingListener();

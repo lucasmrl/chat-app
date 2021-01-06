@@ -5,43 +5,48 @@ const io = require("socket.io")(server);
 
 const PORT = process.env.PORT || 8080;
 
-let usersOn = new Set();
-let socketsConneted = new Map();
+let usersConnected = new Map();
 
 io.on("connection", (socket) => {
   let { id } = socket.client;
-  socketsConneted.set(socket.client.id, socket.id);
-  console.log(`User connected: ${id}`);
-  usersOn.add(id);
-  console.log(usersOn);
-  let arrayOfUsers = Array.from(usersOn);
 
-  socket.on("new-user", () => {
-    socket.broadcast.emit("welcome", id);
+  socket.on("user nickname", (nickname) => {
+    //  1) When the CLIENT sends the 'nickname', we store the 'nickname',
+    //  'socket.client.id', and 'socket.id in a Map structure
+    usersConnected.set(nickname, [socket.client.id, socket.id]);
+
+    //  2) Send list with connected sockets
+    io.emit("users-on", Array.from(usersConnected.keys()));
+
+    //  3) Send to all other users the 'nickname' of the new socket connected
+    socket.broadcast.emit("welcome", nickname);
   });
-
-  socket.on("user-typing", () => {
-    socket.broadcast.emit("display-typing", id);
-  });
-
-  io.emit("users-on", arrayOfUsers);
 
   socket.on("chat message", ({ nickname, msg }) => {
-    console.log(`${nickname}: ${msg}`);
     socket.broadcast.emit("chat message", { nickname, msg });
   });
 
   socket.on("chat message private", ({ toUser, nickname, msg }) => {
-    console.log(`from ${id} to ${toUser}: ${msg}`);
-    let socketId = socketsConneted.get(toUser);
+    let socketId = usersConnected.get(toUser)[1];
     io.to(socketId).emit("private msg", { id, nickname, msg });
   });
 
   socket.on("disconnect", () => {
-    usersOn.delete(id);
-    arrayOfUsers = Array.from(usersOn);
-    io.emit("users-on", arrayOfUsers);
-    socket.broadcast.emit("user-disconnected", id);
+    let tempUserNickname;
+    // TODO: Improve this - Big O (N) - Not good if we have a lot of sockets connected
+    // Find the user and remove from our data structure
+    for (let key of usersConnected.keys()) {
+      if (usersConnected.get(key)[0] === id) {
+        tempUserNickname = key;
+        usersConnected.delete(key);
+        break;
+      }
+    }
+    // Send to client the updated list with users connected
+    io.emit("users-on", Array.from(usersConnected.keys()));
+
+    // Send to cliente the nickname of the user that was disconnected
+    socket.broadcast.emit("user-disconnected", tempUserNickname);
   });
 });
 
