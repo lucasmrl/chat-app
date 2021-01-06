@@ -61,17 +61,20 @@ function Chat() {
     }
   };
 
-  const typingListener = () => {
-    socket.emit("user-typing");
-  };
-
   const saveUserToPrivateMsg = (userID) => {
     setToUser(userID);
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
-      <h1>Chat-app!</h1>
+    <div className="flex w-screen h-screen bg-gray-100">
+      <div className="flex bg-white w-5/6 h-5/6 mx-auto my-auto shadow-md">
+        <div className="bg-yellow-300 w-64">Users Online</div>
+        <div className="flex flex-col flex-grow">
+          <div className="bg-red-200 h-5/6"> messages</div>
+          <div className="bg-blue-200 h-1/6"> form</div>
+        </div>
+      </div>
+      {/* <h1>Chat-app!</h1>
       <p className="font-black">
         {" "}
         Users online ({usersOnline !== null ? usersOnline.length : "0"}):
@@ -105,7 +108,7 @@ function Chat() {
             <p>{el}</p>
           )}
         </div>
-      ))}
+      ))} */}
     </div>
   );
 }
