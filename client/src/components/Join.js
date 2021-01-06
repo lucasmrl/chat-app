@@ -12,27 +12,30 @@ function Join() {
   };
 
   return (
-    <div className="">
-      <form className="flex w-full max-w-sm space-x-3">
-        <div className=" relative ">
-          <input
-            type="text"
-            onChange={(e) => setNickname(e.target.value)}
-            className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-            placeholder="Nickname"
-          />
-        </div>
-        <button
-          className="flex-shrink-0 bg-purple-600 text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200"
-          onClick={() => {
-            submitNickname();
-            handleOnClick();
-          }}
-          type="submit"
-        >
-          Join Chat
-        </button>
-      </form>
+    <div className="flex flex-col h-screen bg-gray-100">
+      <div className="grid place-items-center my-auto">
+        <h1 className="font-bold text-4xl pb-10">Chat App 🦜</h1>
+        <form className="flex w-full max-w-sm space-x-3 justify-center">
+          <div className=" relative ">
+            <input
+              type="text"
+              onChange={(e) => setNickname(e.target.value)}
+              className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-green-600 focus:border-transparent"
+              placeholder="Nickname"
+            />
+          </div>
+          <button
+            className="flex-shrink-0 bg-green-400 text-white text-base font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-purple-200"
+            onClick={() => {
+              submitNickname();
+              handleOnClick();
+            }}
+            type="submit"
+          >
+            Join
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

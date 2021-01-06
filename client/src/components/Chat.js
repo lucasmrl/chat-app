@@ -70,7 +70,7 @@ function Chat() {
   };
 
   return (
-    <div className="">
+    <div className="flex flex-col h-screen bg-gray-100">
       <h1>Chat-app!</h1>
       <p className="font-black">
         {" "}
