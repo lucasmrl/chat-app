@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { default as socket } from "./ws";
+import UserOnline from "./UserOnline";
 
 function Chat() {
   let { user_nickName } = useParams();
@@ -66,12 +67,61 @@ function Chat() {
   };
 
   return (
-    <div className="flex w-screen h-screen bg-gray-100">
+    <div className="flex w-screen h-screen bg-gray-100 divide-solid">
       <div className="flex bg-white w-5/6 h-5/6 mx-auto my-auto shadow-md">
-        <div className="bg-yellow-300 w-64">Users Online</div>
+        {/* Users online */}
+        <div className="pl-8 w-64 overflow-auto">
+          <p className="font-black my-4 text-xl">
+            {" "}
+            # Online: ({usersOnline !== null ? usersOnline.length : "0"}):
+          </p>
+          {/* {usersOnline !== null
+              ? usersOnline.map((el) => (
+                  <li>
+                    <button onClick={() => saveUserToPrivateMsg(el)}>
+                      {el}
+                    </button>
+                  </li>
+                ))
+              : ""} */}{" "}
+          <ul className="w-full divide-y divide-gray-300">
+            {usersOnline !== null
+              ? usersOnline.map((el) => (
+                  <button
+                    onClick={() => saveUserToPrivateMsg(el)}
+                    class="block focus:outline-none"
+                  >
+                    <UserOnline nickname={el} />
+                  </button>
+                ))
+              : ""}
+          </ul>
+        </div>
         <div className="flex flex-col flex-grow">
-          <div className="bg-red-200 h-5/6"> messages</div>
-          <div className="bg-blue-200 h-1/6"> form</div>
+          {/* Messages */}
+          <div className="bg-red-200 h-5/6 overflow-auto">
+            {chat.map((el, index) => (
+              <div key={index}>
+                {el.nickname != null ? (
+                  <p>
+                    {el.nickname} : {el.msg}
+                  </p>
+                ) : (
+                  <p>{el}</p>
+                )}
+              </div>
+            ))}
+          </div>
+          {/* Input */}
+          <div className="bg-blue-200 h-1/6">
+            <input
+              className="block md:inline bg-red-400 mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
+              onChange={(e) => setMsg(e.target.value)}
+              value={msg}
+            />
+            {toUser === "" ? <p>To all users</p> : <p>To user: {toUser}</p>}
+            <button onClick={submitMsg}>Send</button>
+          </div>
         </div>
       </div>
       {/* <h1>Chat-app!</h1>
