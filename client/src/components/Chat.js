@@ -79,15 +79,6 @@ function Chat() {
             {" "}
             # Online: ({usersOnline !== null ? usersOnline.length : "0"}):
           </p>
-          {/* {usersOnline !== null
-              ? usersOnline.map((el) => (
-                  <li>
-                    <button onClick={() => saveUserToPrivateMsg(el)}>
-                      {el}
-                    </button>
-                  </li>
-                ))
-              : ""} */}{" "}
           <ul className="w-full divide-y divide-gray-300">
             {usersOnline !== null
               ? usersOnline.map((el) => (
@@ -121,16 +112,6 @@ function Chat() {
               </div>
             ))}
           </div>
-          {/* Input */}
-          {/* <div className="bg-blue-200 h-1/6">
-            <input
-              className="block md:inline bg-red-400 mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
-              onChange={(e) => setMsg(e.target.value)}
-              value={msg}
-            />
-            {toUser === "" ? <p>To all users</p> : <p>To user: {toUser}</p>}
-            <button onClick={submitMsg}>Send</button>
-          </div> */}
           <form className="">
             <div className="w-full flex p-8 bg-purple-50">
               {" "}
@@ -166,41 +147,6 @@ function Chat() {
           </form>
         </div>
       </div>
-      {/* <h1>Chat-app!</h1>
-      <p className="font-black">
-        {" "}
-        Users online ({usersOnline !== null ? usersOnline.length : "0"}):
-      </p>
-      <ul>
-        {usersOnline !== null
-          ? usersOnline.map((el) => (
-              <li>
-                <button onClick={() => saveUserToPrivateMsg(el)}>{el}</button>
-              </li>
-            ))
-          : ""}
-      </ul>
-      <input
-        className="block md:inline bg-red-400 mx-1 px-3 py-1 lg:text-2xl rounded-lg text-xl text-gray-800 focus:outline-none focus:shadow-outline shadow"
-        onChange={(e) => {
-          setMsg(e.target.value);
-          typingListener();
-        }}
-        value={msg}
-      />
-      {toUser === "" ? <p>To all users</p> : <p>To user: {toUser}</p>}
-      <button onClick={submitMsg}>Send</button>
-      {chat.map((el, index) => (
-        <div key={index}>
-          {el.nickname != null ? (
-            <p>
-              {el.nickname} : {el.msg}
-            </p>
-          ) : (
-            <p>{el}</p>
-          )}
-        </div>
-      ))} */}
     </div>
   );
 }
