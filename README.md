@@ -1,18 +1,5 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-<!-- PROJECT LOGO -->
 <br />
-<p align="center">
-  <a href="https://github.com/lucasmrl/chat-app">
-    <p>🦜</p>
-  </a>
-
-  <h3 align="center">Chat-app</h3>
+  <h1 align="center">Chat-app 🦜</h1>
 
   <p align="center">
     A chat app built with Node.js, Socket.io, React.js, and Tailwind CSS.
@@ -30,7 +17,7 @@
 
 ## About The Project
 
-[![Chat-app🦜][product-screenshot]](https://example.com)
+![Chat-app🦜](https://github.com/lucasmrl/chat-app/blob/master/screenshot.png?raw=true)
 
 A realtime app to exchange messages with connected users. Built for learning purposes. This was the first time using **Socket.io**, so I decided to follow their tutorial to create a chat app and I added a few of the suggested features.
 
