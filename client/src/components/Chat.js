@@ -54,6 +54,8 @@ function Chat() {
   const submitMsg = (e) => {
     e.preventDefault();
     if (toUser !== "") {
+      let selectElem = document.getElementById("usersOn");
+      selectElem.selectedIndex = 0;
       socket.emit("chat message private", { toUser, nickname, msg });
       setChat([...chat, { nickname, msg }]);
       setChat([...chat, `🔒 Private Message for ${toUser}: ${msg}`]);
@@ -72,19 +74,20 @@ function Chat() {
 
   return (
     <div className="flex w-screen h-screen bg-gray-900 divide-solid">
-      <div className="flex w-5/6 h-5/6 mx-auto my-auto shadow-md rounded">
+      <div className="flex w-full md:w-5/6 md:h-5/6 md:mx-auto md:my-auto shadow-md">
         {/* Users online */}
-        <div className="pl-8 w-64 overflow-auto bg-purple-900 text-white">
+        <div className="hidden md:block pl-8 w-64 overflow-auto bg-purple-900 text-white">
           <p className="font-black my-4 text-xl">
             {" "}
             # Online: ({usersOnline !== null ? usersOnline.length : "0"}):
           </p>
           <ul className="w-full divide-y divide-gray-300">
             {usersOnline !== null
-              ? usersOnline.map((el) => (
+              ? usersOnline.map((el, index) => (
                   <button
+                    key={index}
                     onClick={() => saveUserToPrivateMsg(el)}
-                    class="block focus:outline-none"
+                    className="block focus:outline-none"
                   >
                     <UserOnline nickname={el} />
                   </button>
@@ -95,7 +98,10 @@ function Chat() {
         <div className="flex flex-col flex-grow bg-purple-50">
           {/* Messages */}
           <p className="font-black mt-4 mb-2 pl-8 text-2xl">Main Chat</p>
-          <div id="msg" className="h-5/6 overflow-y-auto pl-8 pt-4">
+          <div
+            id="msg"
+            className="h-5/6 overflow-y-auto pl-8 pt-4 mb-2 md:mb-0"
+          >
             {chat.map((el, index) => (
               <div key={index}>
                 {el.nickname != null ? (
@@ -113,29 +119,47 @@ function Chat() {
             ))}
           </div>
           <form className="">
-            <div className="w-full flex p-8 bg-purple-50">
+            <div className="px-8">
+              <select
+                className="md:hidden text-xs flex-1 appearance-none border border-gray-300 w-full py-2 px-1 md:px-4 bg-white text-green-400 placeholder-gray-400 shadow-sm focus:outline-none"
+                id="usersOn"
+                onChange={(e) => saveUserToPrivateMsg(e.target.value)}
+              >
+                <option value="" className="">
+                  Everyone
+                </option>
+                {usersOnline !== null
+                  ? usersOnline.map((el, index) => (
+                      <option value={el} className="" key={index}>
+                        {el}
+                      </option>
+                    ))
+                  : ""}
+              </select>
+            </div>
+            <div className="w-full flex p-4 md:p-8 bg-purple-50">
               {" "}
-              <div className="flex relative w-5/6">
-                <span className="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+              <div className="flex relative w-full md:w-5/6">
+                <span className="rounded-l-md inline-flex items-center px-1 md:px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
                   {toUser === "" ? (
-                    <p className="bg-purple-400 text-white text-base font-normal rounded p-1">
+                    <p className="bg-purple-400 text-white text-xs md:text-base font-normal rounded p-1">
                       To: Everyone
                     </p>
                   ) : (
-                    <p className="bg-purple-700 text-white text-base font-semibold rounded p-1">
+                    <p className="bg-purple-700 text-white text-xs md:text-base font-semibold rounded p-1">
                       To: {toUser}
                     </p>
                   )}
                 </span>
                 <input
                   type="text"
-                  className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none"
+                  className="rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-1 md:px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none"
                   name="message"
                   onChange={(e) => setMsg(e.target.value)}
                   value={msg}
                 />
               </div>
-              <div className="w-1/6">
+              <div className="hidden md:block w-1/6">
                 <button
                   className="ml-8 flex-shrink-0 bg-green-400 text-gray-700 text-base font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2"
                   onClick={(e) => submitMsg(e)}
