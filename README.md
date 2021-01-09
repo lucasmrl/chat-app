@@ -19,7 +19,7 @@
 
 ![Chat-app🦜](https://github.com/lucasmrl/chat-app/blob/master/screenshot.png?raw=true)
 
-A realtime app to exchange messages with connected users. Built for learning purposes. This was the first time using **Socket.io**, so I decided to follow their tutorial to create a chat app and I added a few of the suggested features.
+A real-time app to exchange messages with connected users. Built for learning purposes. This was the first time using **Socket.io**, so I decided to follow their tutorial to create a chat app and I added a few of the suggested features.
 
 ### Built With
 
@@ -73,7 +73,7 @@ You need to have npm installed.
 ## Features
 
 - Support for nickname
-- Message to connected users when someone connects or disconnects.
+- Message to connected users when someone connects or disconnects
 - List with online users
 - Private messages
 - Mobile friendly
