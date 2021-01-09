@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { default as socket } from "./ws";
 import UserOnline from "./UserOnline";
@@ -53,7 +54,20 @@ function Chat() {
 
   const submitMsg = (e) => {
     e.preventDefault();
-    if (toUser !== "") {
+
+    if (msg === "") {
+      toast("Enter a message.", {
+        duration: 4000,
+        // Styling
+        style: {},
+        className: "",
+        // Custom Icon
+        icon: "⚠️",
+        // Aria
+        role: "status",
+        ariaLive: "polite",
+      });
+    } else if (toUser !== "") {
       let selectElem = document.getElementById("usersOn");
       selectElem.selectedIndex = 0;
       socket.emit("chat message private", { toUser, nickname, msg });
@@ -74,6 +88,7 @@ function Chat() {
 
   return (
     <div className="flex w-screen main-chat md:h-screen bg-gray-900 divide-solid">
+      <Toaster />
       <div className="flex w-full md:w-5/6 md:h-5/6 md:mx-auto md:my-auto shadow-md">
         {/* Users online */}
         <div className="hidden md:block pl-8 w-64 overflow-auto bg-purple-900 text-white">
