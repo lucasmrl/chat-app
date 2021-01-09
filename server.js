@@ -6,12 +6,11 @@ const path = require("path");
 
 const PORT = process.env.PORT || 8080;
 
-// app.use(express.static(path.join(__dirname, 'client/build')));
-
-//Handling routes not defined
-// app.get('/*', function (req, res) {
-//   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-// });
+// REMOVE COMMENTS BELOW WHEN READY TO DEPLOY
+app.use(express.static(path.join(__dirname, "client/build")));
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname, "client/build", "index.html"));
+});
 
 let usersConnected = new Map();
 
