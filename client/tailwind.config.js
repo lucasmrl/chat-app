@@ -7,5 +7,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("postcss-viewport-height-correction")],
+  plugins: [],
 };

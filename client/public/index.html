@@ -30,28 +30,6 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <script>
-      var customViewportCorrectionVariable = "vh";
-
-      function setViewportProperty(doc) {
-        var prevClientHeight;
-        var customVar = "--" + (customViewportCorrectionVariable || "vh");
-        function handleResize() {
-          var clientHeight = doc.clientHeight;
-          if (clientHeight === prevClientHeight) return;
-          requestAnimationFrame(function updateViewportHeight() {
-            doc.style.setProperty(customVar, clientHeight * 0.01 + "px");
-            prevClientHeight = clientHeight;
-          });
-        }
-        handleResize();
-        return handleResize;
-      }
-      window.addEventListener(
-        "resize",
-        setViewportProperty(document.documentElement)
-      );
-    </script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -63,5 +41,9 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script type="text/javascript">
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    </script>
   </body>
 </html>

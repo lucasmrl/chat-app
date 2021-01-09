@@ -73,7 +73,7 @@ function Chat() {
   };
 
   return (
-    <div className="flex w-screen min-h-screen md:h-screen bg-gray-900 divide-solid">
+    <div className="flex w-screen main-chat md:h-screen bg-gray-900 divide-solid">
       <div className="flex w-full md:w-5/6 md:h-5/6 md:mx-auto md:my-auto shadow-md">
         {/* Users online */}
         <div className="hidden md:block pl-8 w-64 overflow-auto bg-purple-900 text-white">
