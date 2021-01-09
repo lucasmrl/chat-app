@@ -71,8 +71,8 @@ function Chat() {
   };
 
   return (
-    <div className="flex w-screen h-screen bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 divide-solid">
-      <div className="flex bg-white w-5/6 h-5/6 mx-auto my-auto shadow-md">
+    <div className="flex w-screen h-screen bg-gray-900 divide-solid">
+      <div className="flex w-5/6 h-5/6 mx-auto my-auto shadow-md rounded">
         {/* Users online */}
         <div className="pl-8 w-64 overflow-auto bg-purple-900 text-white">
           <p className="font-black my-4 text-xl">

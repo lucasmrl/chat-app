@@ -12,9 +12,9 @@ function Join() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500">
+    <div className="flex flex-col h-screen bg-gray-100">
       <div className="grid place-items-center my-auto">
-        <h1 className="font-bold text-4xl pb-10 text-white antialiased">
+        <h1 className="font-bold text-4xl pb-10 text-gray-900 antialiased">
           Chat App 🦜
         </h1>
         <form className="flex w-full max-w-sm space-x-3 justify-center">
