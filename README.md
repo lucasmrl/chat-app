@@ -53,7 +53,11 @@ You need to have npm installed.
    ```sh
    npm install
    ```
-3. Run the project using this command:
+3. From the CLIENT directory, install NPM packages
+   ```sh
+   npm install
+   ```
+4. Run the project using this command:
    ```sh
    npm run dev
    ```
