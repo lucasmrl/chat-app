@@ -11,7 +11,7 @@ function UserOnline({ nickname }) {
             className="rounded-full h-10 w-10 "
           />
         </div>
-        <p className="truncate">{nickname}</p>
+        <p className="w-36 truncate text-left">{nickname}</p>
       </div>
     </li>
   );

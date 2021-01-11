@@ -105,12 +105,12 @@ function Chat() {
       <Toaster />
       <div className="flex w-full sm:w-5/6 sm:h-5/6 sm:mx-auto sm:my-auto shadow-md">
         {/* Users online */}
-        <div className="hidden lg:block pl-4 pr-4 w-64 bg-purple-900 text-white overflow-ellipsis">
+        <div className="hidden lg:block pl-4 pr-4 w-64 bg-purple-900 text-white">
           <p className="font-black my-4 text-xl">
             {" "}
             # Online: ({usersOnline !== null ? usersOnline.length : "0"}):
           </p>
-          <ul className="w-full divide-y divide-gray-300">
+          <ul className="divide-y divide-gray-300 truncate">
             {usersOnline !== null
               ? usersOnline.map((el, index) => (
                   <button
