@@ -129,9 +129,9 @@ function Chat() {
           <p className="font-black mt-4 mb-2 pl-8 text-2xl">Main Chat</p>
           <div
             id="msg"
-            className="h-5/6 overflow-y-auto pl-8 pt-4 mb-2 lg:mb-0 bg-red-500 "
+            className="h-5/6 overflow-y-auto pl-8 pt-4 mb-2 lg:mb-0"
           >
-            <ul className="bg-yellow-200 lg:w-96">
+            <ul className="w-full lg:w-96">
               {chat.map((el, index) => (
                 <li key={index} className="lg:w-full lg:break-words">
                   {el.nickname != null ? (
