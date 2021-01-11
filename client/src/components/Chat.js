@@ -103,7 +103,7 @@ function Chat() {
   return (
     <div className="flex w-screen main-chat lg:h-screen bg-gray-900 divide-solid">
       <Toaster />
-      <div className="flex w-full sm:w-5/6 sm:h-5/6 sm:mx-auto sm:my-auto shadow-md">
+      <div className="flex w-full lg:w-5/6 lg:h-5/6 lg:mx-auto lg:my-auto shadow-md">
         {/* Users online */}
         <div className="hidden lg:block pl-4 pr-4 w-64 bg-purple-900 text-white">
           <p className="font-black my-4 text-xl">
@@ -124,28 +124,26 @@ function Chat() {
               : ""}
           </ul>
         </div>
-        <div className="flex flex-col flex-grow bg-purple-50">
+        <div className="flex flex-col flex-grow lg:max-w-full bg-purple-50">
           {/* Messages */}
           <p className="font-black mt-4 mb-2 pl-8 text-2xl">Main Chat</p>
           <div
             id="msg"
-            className="h-5/6 overflow-y-auto pl-8 pt-4 mb-2 lg:mb-0"
+            className="h-5/6 overflow-y-auto pl-8 pt-4 mb-2 lg:mb-0 bg-red-500 "
           >
-            {chat.map((el, index) => (
-              <div key={index}>
-                {el.nickname != null ? (
-                  <p className="overflow-clip">
-                    {el.nickname}: {el.msg}
-                  </p>
-                ) : (
-                  <div>
-                    <p className="text-base font-semibold text-purple-900 rounded py-1 overflow-clip">
+            <ul className="bg-yellow-200 lg:w-96">
+              {chat.map((el, index) => (
+                <li key={index} className="lg:w-full lg:break-words">
+                  {el.nickname != null ? (
+                    `${el.nickname}: ${el.msg}`
+                  ) : (
+                    <p className="text-base font-semibold text-purple-900 rounded py-1">
                       {el}
                     </p>
-                  </div>
-                )}
-              </div>
-            ))}
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
           <form className="">
             <div className="px-8">
