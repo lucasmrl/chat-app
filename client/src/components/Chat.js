@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { default as socket } from "./ws";
 import UserOnline from "./UserOnline";
 
@@ -11,8 +11,17 @@ function Chat() {
   const [chat, setChat] = useState([]);
   const [usersOnline, setUsersOnline] = useState([]);
   const [toUser, setToUser] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
+    if (!localStorage.getItem("chatConnected")) {
+      history.push(`/`);
+    }
+
+    window.addEventListener("beforeunload", () =>
+      localStorage.removeItem("chatConnected")
+    );
+
     setNickname(user_nickName);
     socket.on("chat message", ({ nickname, msg }) => {
       setChat([...chat, { nickname, msg }]);
@@ -28,7 +37,7 @@ function Chat() {
     return () => {
       socket.off();
     };
-  }, [chat, toUser, user_nickName]);
+  }, [chat, toUser, user_nickName, history]);
 
   useEffect(() => {
     socket.on("connect", () => {

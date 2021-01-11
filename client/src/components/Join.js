@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { default as socket } from "./ws";
 
@@ -6,6 +6,10 @@ function Join() {
   const [nickname, setNickname] = useState();
   const history = useHistory();
   const handleOnClick = () => history.push(`/chat/${nickname}`);
+
+  useEffect(() => {
+    localStorage.setItem("chatConnected", "true");
+  }, []);
 
   const submitNickname = () => {
     socket.emit("user nickname", nickname);
