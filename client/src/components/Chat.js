@@ -126,14 +126,19 @@ function Chat() {
         </div>
         <div className="flex flex-col flex-grow lg:max-w-full bg-purple-50">
           {/* Messages */}
-          <p className="font-black mt-4 mb-2 pl-8 text-2xl">Main Chat</p>
+          <p className="font-black mt-4 mb-2 pl-4 lg:pl-8 text-2xl">
+            Main Chat
+          </p>
           <div
             id="msg"
-            className="h-5/6 overflow-y-auto pl-8 pt-4 mb-2 lg:mb-0"
+            className="h-5/6 overflow-y-auto pl-4 lg:pl-8 pt-4 mb-2 lg:mb-0"
           >
             <ul className="w-full lg:w-96">
               {chat.map((el, index) => (
-                <li key={index} className="lg:w-full lg:break-words">
+                <li
+                  key={index}
+                  className="w-screen break-words pr-6 lg:pr-0 lg:w-full"
+                >
                   {el.nickname != null ? (
                     `${el.nickname}: ${el.msg}`
                   ) : (
