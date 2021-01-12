@@ -187,7 +187,7 @@ function Chat() {
                       To: Everyone
                     </p>
                   ) : (
-                    <p className="bg-purple-700 text-white text-xs lg:text-base font-semibold rounded p-1">
+                    <p className="bg-purple-700 text-white text-xs lg:text-base font-semibold rounded p-1 w-20 lg:w-28 truncate">
                       To: {toUser}
                     </p>
                   )}
